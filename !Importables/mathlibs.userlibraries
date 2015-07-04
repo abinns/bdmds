@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<eclipse-userlibraries version="2">
+    <library name="MathLibs" systemlibrary="false">
+        <archive javadoc="jar:platform:/resource/Core/libdocs/dsp_javadocs.zip!/" path="/Core/lib/dsp-collection.jar"/>
+        <archive path="/Core/lib/Jama-1.0.3.jar"/>
+        <archive path="/Core/lib/JLargeArrays-1.2.jar"/>
+        <archive path="/Core/lib/JTransforms-3.0.jar"/>
+    </library>
+</eclipse-userlibraries>

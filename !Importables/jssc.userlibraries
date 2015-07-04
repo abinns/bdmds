@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<eclipse-userlibraries version="2">
+    <library name="JavaSimpleSerialConnector" systemlibrary="false">
+        <archive path="/Core/lib/jssc.jar"/>
+    </library>
+</eclipse-userlibraries>
