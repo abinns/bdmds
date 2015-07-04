@@ -8,6 +8,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLTimeoutException;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.LinkedList;
@@ -146,16 +147,7 @@ public class DbUtil
 
 	static
 	{
-		try
-		{
-			U.p("Initializing Database Connection, connecting to " + DbUtil.DB_URL);
-			Class.forName("com.mysql.jdbc.Driver");
-			U.p("jdbc connector found, connecting...");
-			DbUtil.db = DriverManager.getConnection(DbUtil.DB_URL, DbUtil.DB_USERNAME, DbUtil.DB_PASSWORD);
-		} catch (ClassNotFoundException | SQLException e1)
-		{
-			e1.printStackTrace();
-		}
+		attemptDbConnection();
 
 		try
 		{
@@ -169,6 +161,31 @@ public class DbUtil
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+	}
+
+	private static void attemptDbConnection()
+	{
+		try
+		{
+			U.p("Initializing Database Connection, connecting to " + DbUtil.DB_URL);
+			Class.forName("com.mysql.jdbc.Driver");
+			U.p("jdbc connector found, connecting...");
+			DriverManager.setLoginTimeout(5);
+			DbUtil.db = DriverManager.getConnection(DbUtil.DB_URL, DbUtil.DB_USERNAME, DbUtil.DB_PASSWORD);
+		} catch (SQLTimeoutException e)
+		{
+			U.e("Unable to connect to primary server, falling back to local HyperSQL implementation.");
+			try
+			{
+				db = DriverManager.getConnection("jdbc:mysql:file:lcldb", DbUtil.DB_USERNAME, "");
+			} catch (SQLException e1)
+			{
+				e1.printStackTrace();
+			}
+		} catch (ClassNotFoundException | SQLException e1)
+		{
+			e1.printStackTrace();
 		}
 	}
 }
