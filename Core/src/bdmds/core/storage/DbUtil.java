@@ -148,7 +148,7 @@ public class DbUtil
 	{
 		try
 		{
-			U.p("Initializing Database Connection, connecting to " + DB_URL);
+			U.p("Initializing Database Connection, connecting to " + DbUtil.DB_URL);
 			Class.forName("com.mysql.jdbc.Driver");
 			U.p("jdbc connector found, connecting...");
 			DbUtil.db = DriverManager.getConnection(DbUtil.DB_URL, DbUtil.DB_USERNAME, DbUtil.DB_PASSWORD);
