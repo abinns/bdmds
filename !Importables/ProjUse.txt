@@ -1,0 +1,8 @@
+Recorder
+-JWJGL
+-Slick2D
+-JavaSimpleSerialConnector
+-MySQLConnector
+Analyser
+-SWT
+-MathLibs

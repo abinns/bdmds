@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<eclipse-userlibraries version="2">
+    <library name="JavaSimpleSerialConnector" systemlibrary="false">
+        <archive path="/Core/lib/jssc.jar"/>
+    </library>
+    <library name="LWJGL2" systemlibrary="false">
+        <archive nativelibpaths="Core/natives" path="/Core/lib/lwjgl.jar"/>
+    </library>
+    <library name="MathLibs" systemlibrary="false">
+        <archive javadoc="jar:platform:/resource/Core/libdocs/dsp_javadocs.zip!/" path="/Core/lib/dsp-collection.jar"/>
+        <archive path="/Core/lib/Jama-1.0.3.jar"/>
+        <archive path="/Core/lib/JLargeArrays-1.2.jar"/>
+        <archive path="/Core/lib/JTransforms-3.0.jar"/>
+    </library>
+    <library name="MySQLConnector" systemlibrary="false">
+        <archive path="/Core/lib/mysql-connector-java-5.1.34-bin.jar"/>
+    </library>
+    <library name="Slick2D" systemlibrary="false">
+        <archive path="/Core/lib/slick.jar"/>
+    </library>
+    <library name="SWT" systemlibrary="false">
+        <archive path="/Core/lib/swt.jar"/>
+    </library>
+</eclipse-userlibraries>
