@@ -13,6 +13,8 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.LinkedList;
 
+import com.mysql.jdbc.exceptions.jdbc4.CommunicationsException;
+
 import bdmds.core.backend.U;
 
 public class DbUtil
@@ -132,11 +134,8 @@ public class DbUtil
 	private static PreparedStatement	dataInsertQuery;
 	private static PreparedStatement	datasetInsertQuery;
 	private static PreparedStatement	datasetUpdateQuery;
-
 	private static PreparedStatement	datasetReadQuery;
-
 	private static PreparedStatement	datasetReadIdentQuery;
-
 	private static PreparedStatement	datasetReadAll		= null;
 
 	private static final String			DB_URL				= "jdbc:mysql://pastlg.hopto.org:3306/bdmds";
@@ -148,7 +147,6 @@ public class DbUtil
 	static
 	{
 		attemptDbConnection();
-
 		try
 		{
 			DbUtil.dataInsertQuery = DbUtil.db.prepareStatement(DbUtil.SQL_DATA_INSERT);
@@ -159,7 +157,6 @@ public class DbUtil
 			DbUtil.datasetReadAll = DbUtil.db.prepareStatement(DbUtil.SQL_READ_DATASETS);
 		} catch (SQLException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -170,16 +167,19 @@ public class DbUtil
 		{
 			U.p("Initializing Database Connection, connecting to " + DbUtil.DB_URL);
 			Class.forName("com.mysql.jdbc.Driver");
-			U.p("jdbc connector found, connecting...");
 			DriverManager.setLoginTimeout(5);
 			DbUtil.db = DriverManager.getConnection(DbUtil.DB_URL, DbUtil.DB_USERNAME, DbUtil.DB_PASSWORD);
-		} catch (SQLTimeoutException e)
+		} catch (SQLTimeoutException | CommunicationsException e)
 		{
 			U.e("Unable to connect to primary server, falling back to local HyperSQL implementation.");
 			try
 			{
-				db = DriverManager.getConnection("jdbc:mysql:file:lcldb", DbUtil.DB_USERNAME, "");
+				Class.forName("org.hsqldb.jdbc.JDBCDriver");
+				db = DriverManager.getConnection("jdbc:hsqldb:file:lcldb", DbUtil.DB_USERNAME, "");
 			} catch (SQLException e1)
+			{
+				e1.printStackTrace();
+			} catch (ClassNotFoundException e1)
 			{
 				e1.printStackTrace();
 			}
